@@ -26,6 +26,10 @@ class EmpresaController extends Controller
         $criar_empresa -> Site               = $request->Site;
         $criar_empresa -> image              = $request->image;
 
+   
+
+
+
                 // Imagem do produto upload
         if ($request->hasFile('image')&& $request->file('image')->isValid()){
 

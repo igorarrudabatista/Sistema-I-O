@@ -219,18 +219,19 @@ background-color: #f7f7ff;
                             <div class="row">
                                 <div class="col">
                                     <a href="javascript:;">
-    												<img src="assets/images/logo-icon.png" width="80" alt="">
+    												<img src="/img/empresa/{{$orcamento->empresa->image}}" width="80" alt="">
 												</a>
                                 </div>
                                 <div class="col company-details">
                                     <h2 class="name">
                                         <a target="_blank" href="javascript:;">
-									Minha empresa
+
+									            {{$orcamento->empresa->Nome_Empresa}}
 									</a>
                                     </h2>
-                                    <div>455 Foggy Heights, AZ 85004, US</div>
-                                    <div>(123) 456-789</div>
-                                    <div>company@example.com</div>
+                                    <div>{{$orcamento->empresa->Cnpj}}</div>
+                                    <div>{{$orcamento->empresa->Telefone}}</div>
+                                    <div>{{$orcamento->empresa->Email}}</div>
                                 </div>
                             </div>
                         </header>
@@ -242,70 +243,53 @@ background-color: #f7f7ff;
                             <div class="row contacts">
                                 <div class="col invoice-to">
                                     <div class="text-gray-light">Orçamento para: </div>
-                                    <h2 class="to"> {{$orcamento->Cliente}} </h2>
-                                    <div class="address"> {{$minha_empresa}} </div>
-                                    <div class="email"><a href="mailto:john@example.com">john@example.com</a>
+                                    <h2 class="to"> {{$orcamento->empresa_cliente->Nome_Empresa}} </h2>
+                                    <div class="address"> {{$orcamento->empresa_cliente->Endereco}} | {{$orcamento->empresa_cliente->Cidade}} - {{$orcamento->empresa_cliente->Estado}} </div>
+                                    <div class="email"><a href="mailto:john@example.com">{{$orcamento->empresa_cliente->Email}}</a>
                                     </div>
                                 </div>
                                 <div class="col invoice-details">
-                                    <h1 class="invoice-id">INVOICE 3-2-1</h1>
-                                    <div class="date">Date of Invoice: 01/10/2018</div>
-                                    <div class="date">Due Date: 30/10/2018</div>
+                                    <h1 class="invoice-id">Número do Orçamento: {{$orcamento->Numero_Orcamento}}</h1>
+                                    <div class="date">Data: {{$orcamento->Data}} </div>
+                                    <div class="date">Garantia: {{$orcamento->Garantia}}</div>
                                 </div>
                             </div>
+
+
                             <table>
-                  
+
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>1111</th>
                                         <th class="text-left"> </h2> <br>
-</th>
-                                        <th class="text-right">HOUR PRICE</th>
-                                        <th class="text-right">HOURS</th>
+                                    </th>
+
+                                        <th class="text-right">PREÇO</th>
+                                        <th class="text-right">QUANTIDADE</th>
                                         <th class="text-right">TOTAL</th>
                                     </tr>
+                                
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="no">04</td>
+
+                                        <td class="no">{{$orcamento->produto->id}}</td>
                                         <td class="text-left">
                                             <h3>
                                                 <a target="_blank" href="javascript:;">
-										{{$orcamento->Nome_Produto }}
+										        {{$orcamento->produto->Nome_Produto }}
 										</a>
                                             </h3>
-                                            <a target="_blank" href="javascript:;">
-										   Useful videos
-									   </a> to improve your Javascript skills. Subscribe and stay tuned :)</td>
-                                        <td class="unit">$0.00</td>
-                                        <td class="qty">100</td>
-                                        <td class="total">$0.00</td>
+
+                                            
+                                        <td class="unit">R$ {{$orcamento->produto->Preco_Produto}}</td>
+                                        <td class="qty">{{$orcamento->produto->Quantidade_Produto}}</td>
+                                        <td class="total">R$ {{$orcamento->produto->Quantidade_Produto}} * {{$orcamento->produto->Preco_Produto}}</td>
                                     </tr>
-                                    <tr>
-                                        <td class="no">01</td>
-                                        <td class="text-left">
-                                            <h3>Website Design</h3>Creating a recognizable design solution based on the company's existing visual identity</td>
-                                        <td class="unit">$40.00</td>
-                                        <td class="qty">30</td>
-                                        <td class="total">$1,200.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="no">02</td>
-                                        <td class="text-left">
-                                            <h3>Website Development</h3>Developing a Content Management System-based Website</td>
-                                        <td class="unit">$40.00</td>
-                                        <td class="qty">80</td>
-                                        <td class="total">$3,200.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="no">03</td>
-                                        <td class="text-left">
-                                            <h3>Search Engines Optimization</h3>Optimize the site for search engines (SEO)</td>
-                                        <td class="unit">$40.00</td>
-                                        <td class="qty">20</td>
-                                        <td class="total">$800.00</td>
-                                    </tr>
+                       
+                             
                                 </tbody>
+
                                 <tfoot>
                                     <tr>
                                         <td colspan="2"></td>

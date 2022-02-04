@@ -2,132 +2,125 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Empresa_clientes;
+use App\Models\Empresa_cliente;
 use Illuminate\Http\Request;
 use App\Models\Orcamento;
 use App\Models\Empresa;
 
-use App\Models\Produtos;
+use App\Models\Produto;
 
 
 class OrcamentoController extends Controller
 {
-    public function create (){
+    public function create()
+    {
 
-        $empresa_cliente = Empresa_clientes::all();
+        $empresa_cliente = Empresa_cliente::all();
 
         $orcamento = Orcamento::all();
         $minha_empresa = Empresa::all();
-        $produto = Produtos::all();
+        $produto = Produto::all();
 
-
-
-        return view('orcamento.create_orcamento',
-         ['empresa_cliente'=> $empresa_cliente, 
-        'orcamento'     => $orcamento,
-        'minha_empresa' => $minha_empresa,
-        'produto'       => $produto]);
-
-        }
-
-        
-
-
-    public function store (Request $request) {
-
-        $criar_orcamento =  new Orcamento();
-
-        $criar_orcamento -> Numero_Orcamento     = $request->Numero_Orcamento;
-        $criar_orcamento -> Data                 = $request->Data;
-        $criar_orcamento -> Validade             = $request->Validade;
-        $criar_orcamento -> Garantia             = $request->Garantia;
-        $criar_orcamento -> Forma_Pagamento      = $request->Forma_Pagamento;
-        $criar_orcamento -> Descricao            = $request->Descricao;
-        $criar_orcamento -> Quantidade           = $request->Quantidade;
-        $criar_orcamento -> Valor                = $request->Valor;
-        $criar_orcamento -> Desconto             = $request->Desconto;
-        $criar_orcamento -> Taxas                = $request->Taxas;
-        
-        $criar_orcamento -> empresa_clientes_id  = $request->empresa_clientes_id;
-        $criar_orcamento -> produto_id           = $request->produto_id;
-        $criar_orcamento -> empresa_id           = $request->empresa_id;
-        
-        $criar_orcamento ->save();
-
-        $criar_orcamento = Orcamento::all();
-
-
-
-        return redirect('/')->with('msg', 'Orçamento criado com sucesso'); 
-    
+        return view(
+            'orcamento.create_orcamento',
+            [
+                'empresa_cliente' =>   $empresa_cliente,
+                'orcamento'       =>   $orcamento,
+                'minha_empresa'   =>   $minha_empresa,
+                'produto'         =>   $produto
+            ]
+        );
     }
 
-    public function show() {
+
+
+
+    public function store(Request $request)
+    {
+
+        $criar_orcamento =  Orcamento::create($request->all());
+
+ 
+
         
+
+
+        return redirect('/')->with('msg', 'Orçamento criado com sucesso');
+    }
+
+    public function show()
+    {
+
         $criar_orcamento = Orcamento::all();
 
-        $empresa_cliente = Empresa_clientes::all();
+        $empresa_cliente = Empresa_cliente::all();
+        $empresa = Empresa::all();
+        $produto = Produto::all();
 
         $search = request('search');
 
-        if($search) {
-            $criar_orcamento = Orcamento::where ([['Numero_Orcamento', 'like', '%'.$search. '%' ]])->get();
+        if ($search) {
+            $criar_orcamento = Orcamento::where([['Numero_Orcamento', 'like', '%' . $search . '%']])->get();
+        } else {
+            $criar_orcamento = Orcamento::all();
+        }
 
-             } else {
-                $criar_orcamento = Orcamento::all();
-            }
-        
 
-        return view('orcamento.show_orcamento',[
-                    'criar_orcamento'   => $criar_orcamento,
-                    'search'            => $search,
-                    'empresa_cliente'   => $empresa_cliente]);
+        return view('orcamento.show_orcamento', [
+            'criar_orcamento'   => $criar_orcamento,
+            'search'            => $search,
+            'empresa_cliente'   => $empresa_cliente,
+            'produto'           => $produto,
+            'empresa'           => $empresa
+        ]);
     }
 
 
-    
-    public function edit ($id){
+
+    public function edit($id)
+    {
 
         $editar_orcamento = Orcamento::findOrFail($id);
 
         $titulo = "Edita Cliente";
-        $cliente = Empresa_clientes::find($id);
+        $cliente = Empresa_cliente::find($id);
 
-        return view ('orcamento.edit', ['editar_orcamento'=> $editar_orcamento, compact('titulo', 'cliente')]);
-
-
+        return view('orcamento.edit', ['editar_orcamento' => $editar_orcamento, compact('titulo', 'cliente')]);
     }
 
-    public function update (Request $request){
+    public function update(Request $request)
+    {
 
-       Orcamento::findOrFail($request->id)
-       ->update($request->all());
+        Orcamento::findOrFail($request->id)
+            ->update($request->all());
 
 
         return redirect('/orcamento/show_orcamento')->with('msg', 'Orçamento editado com sucesso!');
-
     }
 
-    public function gerar_pdf($id){
+    public function gerar_pdf($id)
+    {
 
         $orcamento = Orcamento::findOrFail($id);
 
-        $empresa_cliente = Empresa_clientes::find($id, ['Cnpj']);
+        $empresa_cliente = Empresa_cliente::all();
 
-        $minha_empresa = Empresa::find($id);
+        $minha_empresa = Empresa::all();
 
-        return view('orcamento.gerar_pdf', ['empresa_cliente'=> $empresa_cliente, 
-        'orcamento'=> $orcamento, 'minha_empresa'=> $minha_empresa]);
+        $produto = Produto::all();
 
+        return view('orcamento.gerar_pdf', [
+            'empresa_cliente' => $empresa_cliente,
+            'orcamento' => $orcamento,
+            'minha_empresa' => $minha_empresa,
+            'produto' => $produto
+        ]);
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
 
-        Orcamento::findOrFail($id) -> delete();
+        Orcamento::findOrFail($id)->delete();
         return redirect('/orcamento/show_orcamento')->with('msg', 'Orçamento deletado com sucesso!');
     }
- 
-
- 
-
 }

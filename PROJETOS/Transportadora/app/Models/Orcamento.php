@@ -4,33 +4,45 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Empresa_clientes;
 
 class Orcamento extends Model
 {
     use HasFactory;
 
-     
-    protected $table = "orcamento";
-
-    protected $guarded = [];
+    protected $fillable = [
+      'Numero_Orcamento',
+      'Data',
+      'Validade',
+      'Garantia',
+      'Forma_Pagamento',
+      'Descricao',
+      'Quantidade',
+      'Valor',
+      'Desconto',
+      'Taxas',
+      'empresa_id',
+      'empresa_cliente_id',
+      'produto_id',
+  ];
+  
 
     public function empresa() {
-      return $this->hasOne(Empresa::class);
-    }
+        return $this->belongsTo(Empresa::class);
+      }
+  
+  
+    public function empresa_cliente() {
+      return $this->belongsTo(Empresa_cliente::class);
+      }      
+  
+  public function produto() {
+      return $this->belongsTo(Produto ::class);
+  }   
+  
+  
+  public function orcamento_proximidade(){
+      return $this->belongsTo(orcamento_proximidade::class)->withTimestamps();
+  
+      }
 
-
-  public function empresa_cliente() {
-    return $this->hasOne(Empresa_clientes::class);
-    }      
-
-public function produto() {
-    return $this->hasMany(Produtos::class);
-}   
-
-
-public function orcamento_proximidade(){
-    return $this->belongsTo(orcamento_proximidade::class)->withTimestamps();
-
-    }
 }

@@ -32,7 +32,7 @@
  <span class="nav-label"> Empresa</span>
  <span class="caret"> </span> </a>
             <ul class="dropdown-menu sidebar-list">
-                <li class="sidebar-list-item"> <a href="/empresa/form_empresa">Cadastrar minha Empresa</a></li>
+                <li class="sidebar-list-item"> <a href="/minha_empresa/form_empresa">Cadastrar minha Empresa</a></li>
                 <li class="sidebar-list-item"> <a href="/empresa/form_empresa_cliente"> Cadastrar Clientes </a></li>
                 <li class="sidebar-list-item"> <a href="/empresa/show_clientes"> Ver Clientes </a></li>
 
@@ -90,6 +90,31 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
   <script  src="/js/script.js"></script>
+
+<script> 
+
+$(document).ready(function(){
+    let row_number = 1;
+    $("#add_row").click(function(e){
+      e.preventDefault();
+      let new_row_number = row_number - 1;
+      $('#product' + row_number).html($('#product' + new_row_number).html()).find('td:first-child');
+      $('#products_table').append('<tr id="produto_id' + (row_number + 1) + '"></tr>');
+      row_number++;
+    });
+
+    $("#delete_row").click(function(e){
+      e.preventDefault();
+      if(row_number > 1){
+        $("#product" + (row_number - 1)).html('');
+        row_number--;
+      }
+    });
+  });
+
+</script>
+
+
 
   <script>
     @if (session('sucesso'))

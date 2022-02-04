@@ -107,32 +107,32 @@
       </div>
 
 
-@foreach($produtos as $Create )
+@foreach($produtos as $Produto )
 
       <div class="products-row">
         <button class="cell-more-button">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
         </button>
           <div class="product-cell image">
-          <a href="/produtos/edit/{{$Create->id}}"> <img src="/img/produtos/{{$Create->image}}" > </a>
-            <span>{{$Create->Nome_Produto}}</span>
+          <a href="/produtos/edit/{{$Produto->id}}"> <img src="/img/produtos/{{$Produto->image}}" > </a>
+            <span>{{$Produto->Nome_Produto}}</span>
           </div>
-        <div class="product-cell category"><span class="cell-label">Categoria:</span>{{$Create->Categoria_Produto}}</div>
+        <div class="product-cell category"><span class="cell-label">Categoria:</span>{{$Produto->Categoria_Produto}}</div>
         <div class="product-cell status-cell">
           <span class="cell-label">Status:</span>
-          @if ($Create->Status_Produto == '1')
+          @if ($Produto->Status_Produto == '1')
           <span class="status active">Ativo</span>      
           @else
         <span class="status disabled">Desativado</span>
           @endif
         </div>
-        <div class="product-cell sales"><span class="cell-label">Quantidade:</span>{{$Create->Quantidade_Produto}}</div>
-        <div class="product-cell stock"><span class="cell-label">Estoque:</span>{{$Create->Estoque_Produto}}</div>
-        <div class="product-cell price"><span class="cell-label">Preço:</span>R$ {{$Create->Preço_Produto}}</div>
+        <div class="product-cell sales"><span class="cell-label">Quantidade:</span>{{$Produto->Quantidade_Produto}}</div>
+        <div class="product-cell stock"><span class="cell-label">Estoque:</span>{{$Produto->Estoque_Produto}}</div>
+        <div class="product-cell price"><span class="cell-label">Preço:</span>R$ {{$Produto->Preço_Produto}}</div>
         <div class="product-cell what"><span class="cell-label">Ação:</span>  
-        <a href="/produtos/edit/{{$Create->id}}" class="btn btn-info edit-btn"> <ion-icon name="create-outline"></ion-icon> Editar </a>&nbsp
+        <a href="/produtos/edit/{{$Produto->id}}" class="btn btn-info edit-btn"> <ion-icon name="create-outline"></ion-icon> Editar </a>&nbsp
         
-        <form action="/produtos/{{$Create->id}}" method="POST">
+        <form action="/produtos/{{$Produto->id}}" method="POST">
         @csrf
         @method('DELETE')
 

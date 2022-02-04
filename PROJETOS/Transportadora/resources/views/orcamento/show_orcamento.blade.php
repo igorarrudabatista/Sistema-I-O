@@ -129,7 +129,11 @@
           <div class="product-cell image">
           <a href="/orcamento/edit/{{$Orcamento->id}}"> <img src="/img/orcamento/orcamento.jpeg" > </a>
          
-          <span> Nome empresa aqui  </span>
+          <span> Cliente: {{$Orcamento->empresa_cliente->Nome_Empresa}}
+            <br> 
+          </span>
+
+
        
         </div>
         <div class="product-cell numero_orcamento"><span class="cell-label">N. Orçamento:</span>{{$Orcamento->Numero_Orcamento}}</div>

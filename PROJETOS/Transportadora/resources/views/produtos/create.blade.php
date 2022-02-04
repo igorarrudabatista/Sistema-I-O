@@ -71,7 +71,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroupPrepend2">R$</span>
         </div>
-        <input type="text" class="form-control" id="Preço_Produto" name="Preço_Produto" required>
+        <input type="text" class="form-control" id="Preco_Produto" name="Preco_Produto" required>
       </div>
     </div>
   </div>

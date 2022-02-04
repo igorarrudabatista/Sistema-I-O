@@ -26,7 +26,8 @@ class EmpresaCliente extends Migration
             $table->string('Cidade',20);
             $table->string('Estado',2);
             $table->string('image',255);
-
+            
+        
           
             $table->timestamps();
 

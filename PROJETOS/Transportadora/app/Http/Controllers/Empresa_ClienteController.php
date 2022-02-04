@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Empresa_clientes;
+use App\Models\Empresa_cliente;
 use Illuminate\Http\Request;
 
 
@@ -16,7 +16,7 @@ class Empresa_ClienteController extends Controller
 
     public function store (Request $request) {
 
-        $criar_empresa_cliente =  new Empresa_clientes();
+        $criar_empresa_cliente =  new Empresa_cliente();
 
         $criar_empresa_cliente -> Nome_Empresa       = $request->Nome_Empresa;
         $criar_empresa_cliente -> Cnpj               = $request->Cnpj;
@@ -24,9 +24,12 @@ class Empresa_ClienteController extends Controller
         $criar_empresa_cliente -> Telefone           = $request->Telefone;
         $criar_empresa_cliente -> Site               = $request->Site;
         $criar_empresa_cliente -> Cidade             = $request->Cidade;
-        $criar_empresa_cliente -> Endereço           = $request->Endereço;
+        $criar_empresa_cliente -> Endereco           = $request->Endereco;
         $criar_empresa_cliente -> Estado             = $request->Estado;
         $criar_empresa_cliente -> image              = $request->image;
+
+
+
 
                 // Imagem do produto upload
         if ($request->hasFile('image')&& $request->file('image')->isValid()){
@@ -45,7 +48,7 @@ class Empresa_ClienteController extends Controller
 
         $criar_empresa_cliente ->save();
 
-        $criar_empresa = Empresa_clientes::all();
+        $criar_empresa = Empresa_cliente::all();
 
         return redirect('/empresa/show_clientes')->with('msg', 'Cliente cadastrado com sucesso'); 
     
@@ -53,28 +56,28 @@ class Empresa_ClienteController extends Controller
 
     public function show() {
         
-        $criar_empresa = Empresa_clientes::all();
+        $criar_empresa = Empresa_cliente::all();
 
         $search = request('search');
 
         if($search) {
-            $criar_empresa = Empresa_clientes::where ([['Nome_Empresa', 'like', '%'.$search. '%' ]])->get();
+            $criar_empresa = Empresa_cliente::where ([['Nome_Empresa', 'like', '%'.$search. '%' ]])->get();
 
              } else {
-                $criar_empresa = Empresa_clientes::all();
+                $criar_empresa = Empresa_cliente::all();
             }
         
 
-        return view('empresa.show_clientes', ['empresa_clientes'=> $criar_empresa, 'search' => $search]);
+        return view('empresa.show_clientes', ['criar_empresa'=> $criar_empresa, 'search' => $search]);
 
     }
 
     public function edit ($id){
 
-        $editar_empresa = Empresa_clientes::findOrFail($id);
+        $editar_empresa = Empresa_cliente::findOrFail($id);
 
         $titulo = "Edita Cliente";
-        $cliente = Empresa_clientes::find($id);
+        $cliente = Empresa_cliente::find($id);
 
         return view ('empresa.edit', ['editar_empresa'=> $editar_empresa, compact('titulo', 'cliente')]);
 
@@ -83,7 +86,7 @@ class Empresa_ClienteController extends Controller
 
     public function update (Request $request){
 
-        Empresa_clientes::findOrFail($request->id)
+        Empresa_cliente::findOrFail($request->id)
        ->update($request->all());
 
 
@@ -95,7 +98,7 @@ class Empresa_ClienteController extends Controller
 
     public function destroy($id){
 
-        Empresa_clientes::findOrFail($id) -> delete();
+        Empresa_cliente::findOrFail($id) -> delete();
         return redirect('/empresa/show_clientes')->with('msg', 'Produto deletado com sucesso!');
     }
 

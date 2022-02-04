@@ -27,14 +27,16 @@ Route::get('base', function () {
     return view('base');
 }); 
 
+Route::get('/dashboard/home',               [HomeController::class,     'home']);
+
+
 //Cadastro de Produtos
 Route::get('/produtos/produtos',            [ProdutosController::class, 'produtos']);
-Route::get('/dashboard/home',               [HomeController::class,     'home']);
-Route::get('/produtos/create',              [CreateController::class,   'create']);
-Route::get('/produtos/edit/{id}',           [CreateController::class,   'edit']);
-Route::post('/produtos',                    [CreateController::class,   'store']);
-Route::put('/produtos/update/{id}',         [CreateController::class,   'update']);
-Route::delete('/produtos/{id}',             [CreateController::class,   'destroy']);
+Route::get('/produtos/create',              [ProdutosController::class,   'create']);
+Route::get('/produtos/edit/{id}',           [ProdutosController::class,   'edit']);
+Route::post('/produtos',                    [ProdutosController::class,   'store']);
+Route::put('/produtos/update/{id}',         [ProdutosController::class,   'update']);
+Route::delete('/produtos/{id}',             [ProdutosController::class,   'destroy']);
 
 //Minha Empresa
 Route::get('/minha_empresa/form_empresa',         [EmpresaController::class,   'create']);

@@ -108,7 +108,7 @@
       </div>
 
 
-@foreach($empresa_clientes as $empresa_clientes )
+@foreach($criar_empresa as $empresa_clientes )
 
       <div class="products-row">
         <button class="cell-more-button">

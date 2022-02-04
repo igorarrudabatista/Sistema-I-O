@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Create;
 use CriarProdutos;
+use App\Models\Produto;
 
 class CreateController extends Controller
 {
     public function store (Request $request) {
 
-        $criar_produto =  new Create;
+        $criar_produto =  new Produto;
 
         $criar_produto -> Nome_Produto       = $request->Nome_Produto;
         $criar_produto -> Categoria_Produto  = $request->Categoria_Produto;
@@ -36,7 +37,7 @@ class CreateController extends Controller
 
         $criar_produto ->save();
 
-        $criar_produto = Create::all();
+        $criar_produto = Produto::all();
 
         return redirect('/produtos/produtos')->with('msg', 'Produto cadastrado com sucesso');
 
